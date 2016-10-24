@@ -280,9 +280,7 @@ const subclasses = {
  */
 Bucket.create = function(options) {
     let type = options.layer.type;
-    if (type === 'fill' && (!options.layer.isPaintValueFeatureConstant('fill-extrude-height') ||
-        !options.layer.isPaintValueZoomConstant('fill-extrude-height') ||
-        options.layer.getPaintValue('fill-extrude-height', {zoom: this.zoom}) !== 0)) {
+    if (type === 'fill' && options.layer.isExtruded({ zoom: this.zoom })) {
         type = 'fillextrusion';
     }
     return new subclasses[type](options);
